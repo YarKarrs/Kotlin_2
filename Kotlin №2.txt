@@ -1,0 +1,32 @@
+//Задание 1
+fun agoToText(sec: Int): String = when {
+    sec <= 60 -> "был(а) только что"
+    sec <= 3600 -> {
+        val m = sec / 60
+        "был(а) $m " + when {
+            m % 100 in 11..14 -> "минут"
+            m % 10 == 1 -> "минуту"
+            m % 10 in 2..4 -> "минуты"
+            else -> "минут"
+        } + " назад"
+    }
+    sec <= 86400 -> {
+        val h = sec / 3600
+        "был(а) $h " + when {
+            h % 100 in 11..14 -> "часов"
+            h % 10 == 1 -> "час"
+            h % 10 in 2..4 -> "часа"
+            else -> "часов"
+        } + " назад"
+    }
+    sec <= 172800 -> "был(а) вчера"
+    sec <= 259200 -> "был(а) позавчера"
+    else -> "был(а) давно"
+}
+//Задание 2
+fun commission(type: String = "VK Pay", prev: Int = 0, amount: Int) = when (type) {
+    "VK Pay" -> "0 руб."
+    "MasterCard", "Maestro" -> if (prev + amount <= 75_000) "0 руб." else "${(amount * 0.006 + 20).toInt()} руб."
+    "Visa", "Мир" -> "${maxOf((amount * 0.0075).toInt(), 35)} руб."
+    else -> "Неизвестный тип"
+}
